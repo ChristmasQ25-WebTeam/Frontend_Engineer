@@ -61,40 +61,48 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Sorts+Mill+Goudy&display=swap');
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 #scenario1_4 {
   display: none;
 }
 #scenario2_3 {
   overflow: scroll;
-
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  
 
   display: flex;
   flex-direction: column;
   align-items:  center;
   /* justify-content: center; */
   
-  background-color: white;
+  background-color: #920000;
   border-radius: 5px;
   padding: 20px;
   padding-top: 70px;
-  width: 375px;
-  height: 667px;
+  width: 360px;
+  height: 640px;
 }
 
 body {
   display: flex;
-  background-color: rgb(19, 112, 2);
+  background-color: #920000;
   align-items:  center;
   justify-content: center;
 } 
 .title {
+  font-family: 'Sorts Mill Goudy', serif;
+  color: #FFF500;
   font-size: 30px;
   font-weight: 600;
 }
@@ -116,6 +124,10 @@ body {
   flex-direction: column;
   margin-top: 30px;
 }
+.newcontents > p {
+  font-family: 'NanumSquareRound';
+  color: white;
+}
 .newcontents > div {
   display: flex;
   flex-wrap: wrap;
@@ -125,11 +137,24 @@ body {
 .newcontents > div div {
   width: 100px;
   height: 100px;
-  background-color: rgb(219, 64, 17);
+  background-color: #F4E7B6;
   margin: 8px;
   border-radius: 3px;
   line-height: 100px;
-  color: white;
+  color: #920000;
   font-size: 20px;
 }
+
+/* - 메인컬러
+    - 배경색(red) : 920000
+- 서브컬러
+    - yellow : FFF500
+    - white : FFFFFF
+    - black : 000000
+    - beige : F4E7B6
+- 폰트 컬러
+    - yellow : FFF500
+    - white : FFFFFF
+    - black : 000000
+    - gray : D9D9D9 */
 </style>
