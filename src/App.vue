@@ -1,25 +1,4 @@
 <template>
-  <div id="scenario1_4">
-    <div class="title">
-      <div>Christmas Q25</div>
-      <div>당신의 1년을 정리하는 25개의 질문</div>
-    </div>
-
-    <div class="celebrate-illust">
-    </div>
-    
-
-    <div class="text-content">
-      <p>생성이 완료되었어요 :)</p>
-      <a class="user-email">user@gmail.com</a>
-      <p>메일함을 확인해주세요!</p>
-    </div>
-
-    <div>
-      <button>바로가기</button>
-    </div>
-  </div>
-
   <div id="scenario2_3">
     <div class="title">
       <div><span class="userName">{{nickname}}</span>'s</div> 
@@ -67,9 +46,6 @@ export default {
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-}
-#scenario1_4 {
-  display: none;
 }
 #scenario2_3 {
   overflow: scroll;
