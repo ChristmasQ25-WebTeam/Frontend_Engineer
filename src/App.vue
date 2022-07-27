@@ -184,12 +184,18 @@
     <div class="newcontents">
       <p>당신의 1년을 정리하는 25개의 질문</p>
       <div v-for="i in 8" :key="i">
-        <div @click="random_Q" v-for="j in 3" :key="j">{{3*(i-1)+j}}</div>
+        <div @click="random_Q" v-for="j in 3" :key="j">
+          <!-- <img src="./assets/box/{{3*(i-1)+j}}.png" alt=""> -->
+          <!-- <img src="'./assets/box/'+ {{3*(i-1)+j}} + '.png'" alt="" id='giftbox'> -->
+          <img :src="require(`@/assets/box/${3*(i-1)+j}.png`)" alt="" id='giftbox'>
+        </div>
         <div v-if='i==8'>25</div>
       </div>
       <button>답변 모아보기</button>
     </div>
-    
+
+    <!-- <img :src="require(`@/assets/images/${img}`)" />  -->
+
   </div>
 
 
@@ -203,9 +209,9 @@ export default {
   name: 'App',
   data() {
     return{
-      start_page : true,
+      start_page : false,
       introduction_page : false,
-      Q_list_page : false,
+      Q_list_page : true,
       pw_find_page : false,
       signUp_page : false,
       complete_page : false,
@@ -546,16 +552,14 @@ span {vertical-align: baseline;}
   align-items: center;
   justify-content: center;
 }
-.newcontents > div div {
-  width: 100px;
-  height: 100px;
-  background-color: #F4E7B6;
-  margin: 8px;
-  border-radius: 3px;
+#giftbox {
+  width: 80px;
+  height: 80px;
+  margin: 12px;
+  margin-bottom: 25px;
   line-height: 100px;
-  color: #920000;
-  font-size: 20px;
 }
+
 
 /* 자몽 */
 .celebrate-illust {
