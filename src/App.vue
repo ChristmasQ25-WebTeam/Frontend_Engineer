@@ -69,6 +69,7 @@
         <button type="button" @click="pwBtnOn" id="pwfindBtn">비밀번호 찾기</button>
       </div>
       <div id="teamname">teamname</div>
+<<<<<<< HEAD
     </div>
 
   <!-- 로그인 실패 모달창 페이지 -->
@@ -79,6 +80,18 @@
       </div>
     </div>
 
+=======
+    </div>
+
+  <!-- 로그인 실패 모달창 페이지 -->
+    <!-- <div class="black-bg" v-if="unknownEmail == true">
+      <div class="white-bg">
+        <p>등록되지 않은 이메일입니다</p>
+        <p @click="checkInfo = false" class="ok">확인</p>
+      </div>
+    </div>
+
+>>>>>>> ee2d3bc5c8f30263a4123210e7423e3c9d5263d6
     <div class="black-bg" v-if="unknownPw == true">
       <div class="white-bg">
         <p>잘못된 비밀번호입니다</p>
