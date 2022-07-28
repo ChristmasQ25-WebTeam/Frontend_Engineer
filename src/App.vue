@@ -185,7 +185,6 @@
     </div>
     
     <div class="newcontents">
-      <!-- <p>하단에 답변을 모아볼 수 있는 버튼이 있어요!</p> -->
       <div v-for="i in 8" :key="i">
         <div @click="questionList" v-for="j in 3" :key="j">
           <img :src="require(`@/assets/box/${3*(i-1)+j}.png`)" alt="" id='giftbox'>
