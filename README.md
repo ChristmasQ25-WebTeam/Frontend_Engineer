@@ -1,4 +1,4 @@
-# christmas_q25
+# umc06
 
 ## Project setup
 ```
