@@ -137,64 +137,78 @@
 
   <!-- 미니 : 회원가입 view-->
   <div v-if="signUp_page==true" id="signUp_page">
-    <div class="black-bg check-password" v-if="pwOpen == true">
-      <div class="white-bg">
-        <h4>비밀번호를 입력해주세요</h4>
-        <button @click="check">확인</button>
+    <div class="modal">
+      <div class="modal_background check-password_form" v-if="pwformOpen == true">
+        <div class="modal_box">
+          <h4>비밀번호 형식을 확인해주세요</h4>
+          <button @click="check">확인</button>
+        </div>
+      </div>
+      <div class="modal_background check-password" v-if="pwOpen == true">
+        <div class="modal_box">
+          <h4>비밀번호를 입력해주세요</h4>
+          <button @click="check">확인</button>
+        </div>
+      </div>
+      <div class="modal_background check-email" v-if="emailOpen == true">
+        <div class="modal_box">
+          <h4>이메일 중복확인을<br>완료해주세요</h4>
+          <button @click="check">확인</button>
+        </div>
+      </div>
+      <div class="modal_background check-nickname" v-if="nickOpen == true">
+        <div class="modal_box">
+          <h4>닉네임을 입력해주세요</h4>
+          <button @click="check">확인</button>
+        </div>
       </div>
     </div>
-    <div class="black-bg check-email" v-if="emailOpen == true">
-      <div class="white-bg">
-        <h4>이메일 중복확인을 완료해주세요</h4>
-        <button @click="check">확인</button>
-      </div>
-    </div>
-    <div class="black-bg check-nickname" v-if="nickOpen == true">
-      <div class="white-bg">
-        <h4>닉네임을 입력해주세요</h4>
-        <button @click="check">확인</button>
-      </div>
-    </div>
-  
-
-  <div id="start">
+    
     <div class="content">
-      <ul>
-        <li>
-          <div class="label-box">
-            <span>페이지에 표기될 닉네임을<br>입력해주세요!</span>
-          </div>
-          <div class="input-box">
-            <input type="text" class="inputText" v-model="nickName" placeholder="닉네임을 입력해주세요!">
-          </div>
-        </li>
-        <li>
-          <div class="label-box">
-            <span>링크를 전달받으실 이메일을<br>입력해주세요!</span>
-          </div>
-          <div class="input-box">
-            <input type="email" class="inputText" v-model="email" placeholder="이메일을 입력해주세요!">
-            <br>
-            <button class="overlap-btn" @click="chkOverlap">중복확인</button>
-            <i class="fa fa-check" v-if="chkEmail == true"></i>
-
-          </div>
-        </li>
-        <li>
-          <div class="label-box">
-            <span>아무나 작성할 수 없도록!<br>비밀번호를 입력해주세요</span>
-          </div>
-          <div class="input-box">
-            <input type="password" class="inputText" id="inputPW" v-model="password" placeholder="비밀번호를 입력해주세요!" @change="chkInput">
-            <p :class="[chkPw === false ? 'unchk' : 'chk']">*영문/숫자 포함 6자 이상</p>
-          </div>
-        </li>
-      </ul>
+      <div id="wrap1">
+        <i class="material-icons">keyboard_arrow_left</i>
+        <span>홈으로</span>
+      </div>
+      <div id="wrap2">
+        <h3>Order</h3>
+        <ul>
+          <li>
+            <div class="label-box">
+              <span>페이지에 표기될 닉네임을 입력해주세요!</span>
+            </div>
+            <div class="input-box">
+              <input type="text" class="inputText" v-model="nickName" placeholder="닉네임을 입력해주세요!">
+            </div>
+          </li>
+          <li>
+            <div class="label-box">
+              <span>이메일을 입력해주세요!</span>
+            </div>
+            <div class="input-box email-input">
+              <input type="email" class="inputText" v-model="email" placeholder="이메일을 입력해주세요!">
+              <br>
+              <button class="overlap-btn" @click="chkOverlap">중복확인</button>
+              <img src="../src/assets/05_check.png" alt="중복확인" v-if="chkEmail == true">
+            </div>
+          </li>
+          <li>
+            <div class="label-box">
+              <span>아무나 작성할 수 없도록!<br>비밀번호를 입력해주세요</span>
+            </div>
+            <div class="input-box pw-input">
+              <input type="password" class="inputText" id="inputPW" v-model="password" placeholder="비밀번호를 입력해주세요!" @change="chkInput">
+              <p :class="[chkPw === false ? 'unchk' : 'chk']">*영문/숫자 포함 6자 이상</p>
+            </div>
+          </li>
+        </ul>
+        <p>confirm</p>
+        <img src="../src/assets/02_stamp.png" alt="스탬프" v-if="pwformOpen == false && pwOpen == false && emailOpen == false && nickOpen == false">
+      </div>
+      <div id="wrap3">
+        <button class="finish-btn" @click="submit">완료</button>
+      </div>
     </div>
-    <div class="finish">
-      <button class="finish-btn" @click="submit">완료</button>
-    </div>
-  </div>
+    
   </div>
 
   <!-- 엘 : 질문리스트 view-->
@@ -253,9 +267,7 @@ export default {
       chkEng: /[a-zA-Z]/,
       chkEmail: false,
       emailOpen: false,
-
-      // unknownEmail: false,
-      // unknownPw: false
+      pwformOpen: false
     }
   },
   methods: {
@@ -291,16 +303,26 @@ export default {
     random_Q(){
       console.log(this.nickName)
     },
+
     submit(e){
       e.preventDefault();
       if (this.nickName == ''){
         this.nickOpen = true;
+        this.emailOpen = false;
+        this.pwOpen = false;
+        this.pwformOpen = false;
       }
-      if (this.password == ''){
-        this.pwOpen = true;
-      }
-      if (this.chkEmail == false){
+      else if (this.chkEmail == false){
         this.emailOpen = true;
+        this.pwOpen = false;
+        this.pwformOpen = false;
+      }
+      else if (this.password == ''){
+        this.pwOpen = true;
+        this.pwformOpen = false;
+      }
+      else if (this.chkPw == false){
+        this.pwformOpen = true;
       }
       else {
         this.login_page=true;
@@ -311,6 +333,7 @@ export default {
       this.nickOpen = false;
       this.pwOpen = false;
       this.emailOpen = false;
+      this.pwformOpen = false;
     },
     chkInput(){
       if (this.password.length < 6){
@@ -549,84 +572,213 @@ body {
 }
 
 /* 미니 */
-@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
+/* @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"; */
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
 /* html, body {margin: 0; padding: 0%; background: green;} */
 ul, li {list-style: none;}
 span {vertical-align: baseline;}
-.black-bg {
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  position: fixed;
-  
+
+.modal {
+  position: relative;
+  z-index: 2;
 }
-.black-bg .white-bg {
-  width: 180px;
-  background: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 150px auto;
-}
-.black-bg .white-bg h4 {
-  padding: 0 0 10px 0;
-  border-bottom: 1px solid;
-  font-size: 11px;
-}
-.black-bg .white-bg button {
-  padding: 10px 0 0 0;
-  border: none;
-  background: #fff;
-}
-#start {
-  width: 200px;
-  margin: 0 auto;
-  /* background: #fff; */
-}
-#start .content {
-  text-align: center;
-  padding: 10px 0;
-}
-#start .content ul {
-}
-#start .content li {
-  padding: 10px 0;
-}
-#start .content li .label-box {
-  padding: 5px 0;
-}
-#start .content li .label-box span {
-}
-#start .content li .input-box {
-  
-}
-#start .content li .input-box .inputText {
-}
-#start .content li .input-box .overlap-btn {
-  margin: 5px 0 0 0;
-}
-#start .content li .input-box i {
-  padding: 0 0 0 5px;
-}
-#start .content li .input-box .chk {
-  margin: 5px 0 0 0;
-}
-#start .content li .input-box .unchk {
-  margin: 5px 0 0 0;
-  color: #f00;
-}
-#start .finish {
-  border-top: 1px solid ;
-  text-align: center;
-  padding: 10px 0;
-}
-#start .finish .finish-btn {
+.content {
+  position: relative;
+  z-index: 1;
 }
 
+.modal_background {
+  width: 400px;
+  height: 660px;
+  background: rgba(217,217,217,0.7);
+  position: fixed;
+  right: 285px;
+}
+.modal_background .modal_box {
+  width: 223px;
+  height: 110px;
+  background: #F4E7B6;
+  border-radius: 10px;
+  padding: 16px;
+  margin: 246px 68px;
+}
+.modal_background .modal_box h4 {
+  padding: 20px 0 30px 0;
+  border-bottom: 0.3px solid #000;
+  font-size: 16px;
+  font-weight: 800;
+  font-family: 'NanumSquareRound';
+}
+.modal_background.check-email .modal_box h4 {
+  padding: 14px 0 18px 0;
+  border-bottom: 0.3px solid #000;
+  font-size: 16px;
+  font-weight: 800;
+  font-family: 'NanumSquareRound';
+}
+.modal_background .modal_box button {
+  padding: 16px 0 0 0;
+  border: none;
+  background: #F4E7B6;
+  color: #920000;
+  font-size: 16px;
+  font-weight: 800;
+  font-family: 'NanumSquareRound';
+}
+
+#app {
+  padding-top: 0;
+  /* padding: 0; */
+  /* position: relative; */
+}
+#wrap1 {
+  text-align: left;
+  height: 62px;
+  position: relative;
+}
+#wrap1 .material-icons {
+  position: absolute;
+  top: 10px;
+  /* left: 10px; */
+  right: 308px;
+  display: inline-block;
+  color: #fff;
+  font-size: 42px;
+  font-weight: 800;
+}
+#wrap1 span {
+  position: absolute;
+  top: 18px;
+  /* left: 50px; */
+  right: 250px;
+  display: inline-block;
+  color: #fff;
+  font-size: 21px;
+  font-weight: 800;
+  font-family: 'NanumSquareRound';
+  padding: 0 0 26px 0;
+}
+
+#wrap2 {
+  /* text-align: center;
+  padding: 10px 0; */
+  position: relative;
+  width: 300px;
+  height: 490px;
+  padding: 16px;
+  border-radius: 5px;
+  background-color: #F4E7B6;
+  font-family: 'NanumSquareRound';
+}
+#wrap2 h3 {
+  font-family: 'Sorts Mill Goudy', serif;
+  font-weight: 500;
+  font-size: 32px;
+  border-bottom: 0.3px solid #000;
+  padding: 10px;
+}
+#wrap2 ul {
+  padding: 28px 0 0 0;
+}
+#wrap2 li {
+  
+}
+#wrap2 li .label-box {
+  
+}
+#wrap2 li .label-box span {
+  font-weight: 800;
+  font-size: 16px;
+}
+#wrap2 li .input-box {
+  position: relative;
+  padding: 18px 0 46px 0;
+}
+#wrap2 li .input-box.email-input {
+  position: relative;
+  padding: 18px 0 28px 0;
+}
+#wrap2 li .input-box.pw-input {
+  position: relative;
+  padding: 18px 0 26px 0;
+}
+#wrap2 li .input-box .inputText {
+  width: 200px;
+  height: 25px;
+  border: none;
+  border-radius: 5px;
+}
+#wrap2 li .input-box .inputText::placeholder {
+  font-family: 'NanumSquareRound';
+  text-align: center;
+  font-weight: 800;
+  color: #d9d9d9;
+}
+#wrap2 li .input-box .overlap-btn {
+  margin: 10px 0 0 0;
+  font-family: 'NanumSquareRound';
+  border: none;
+  border-radius: 6px;
+  background: #920000;
+  width: 49px;
+  height: 24px;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 800;
+}
+#wrap2 li .input-box img {
+  position: absolute;
+  color: #920000;
+  width: 15px;
+  height: 15px;
+  top: 57px;
+  padding: 0 0 0 12px;
+}
+#wrap2 li .input-box p {
+  font-size: 12px;
+  font-weight: 800;
+  padding: 13px 0 0 0;
+}
+#wrap2 li .input-box .chk {
+
+}
+#wrap2 li .input-box .unchk {
+  color: #920000;
+}
+#wrap2 > p {
+  font-family: 'Sorts Mill Goudy', serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #000;
+  text-align: right;
+  padding: 0 35px 0 0;
+}
+#wrap2 > img {
+  width: 38px;
+  position: absolute;
+  right: 27px;
+  bottom: 7px;
+}
+
+#wrap3 {
+  text-align: center;
+  padding: 16px 0 24px 0;
+}
+#wrap3 .finish-btn {
+  font-family: 'NanumSquareRound';
+  font-size: 16px;
+  font-weight: 800;
+  background: #fff;
+  border: none;
+  border-radius: 6px;
+  width: 168px;
+  height: 42px;
+}
 
 #signUp_page {
-  padding: 25px;
-    border-radius: 5px;
-    background-color: #F4E7B6;
+  /* padding: 25px;
+  border-radius: 5px;
+  background-color: #F4E7B6; */
 }
 
 /* 엘 */
