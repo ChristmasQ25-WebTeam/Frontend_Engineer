@@ -4,33 +4,32 @@
     <div class="container">
       <div id="title">Christmas Q25</div>
       <div class="subtitle">- 당신의 1년을 정리하는 25개의 질문 -</div>
-      <div id="logo">로고</div>
-      <div><button @click="introBtnOn" type="button" class="btn" id="introductionBtn">소개</button></div>
-      <div><button @click="signUpBtnOn" type="button" onclick="" class="btn">시작하기</button></div>
-      <div><button @click="pwBtnOn" type="button" onclick="" class="btn">비밀번호 찾기</button></div>
-      <div style="color: white;">teamname</div>
+      <div><img id="logo_1" src="./assets/christmas-wreath.png"></div>
+      <div><button @click="introBtnOn" type="button" class="btn">소개</button></div>
+      <div><button @click="togo_login_page" type="button" class="btn" id="startBtn">시작하기</button></div>
+      <!-- <div><button @click="pwBtnOn" type="button" onclick="" class="btn">비밀번호 찾기</button></div> -->
+      <div id="teamname">teamname</div>
     </div>
   </div>
 
   <div v-if="introduction_page==true">
-    <div><button @click="introBtnOff" type="button" id="backBtn">Back</button></div>
     <div class="container">    
       <div id="title">Christmas Q25</div>
       <div class="subtitle">- 당신의 1년을 정리하는 25개의 질문 -</div>
-      <div id="introductionBox">
-        <p>Christmas Q25는 12월 1일부터 12월 25일 크리스마스까지
-        1년을 돌아볼 수 있는 질문들을 매일 하나씩 제공합니다.</p>
-        <p>여러분들은 각 질문에 대한 답변을 작성하며 1년을 되돌아보고, 정리할 수 있을 것입니다.</p>
-        <p>Christmas Q25가 1년동안의 소중했던 추억, 행복했던 기억, 고마웠던 사람을 떠올리게 하는
-            따뜻한 매개체가 되길 바라며
-        </p>
-        <p>모든 사용자분들의 행복한 연말을 기원합니다.</p>
+      <div class="introductionBox">
+        <p>Christmas Q25는<br>12월 1일부터 12월 25일 크리스마스까지<br>
+        1년을 돌아볼 수 있는 질문들을<br>매일 하나씩 제공합니다.</p><br>
+        <p>여러분들은 각 질문에 대한 답변을 작성하며<br>1년을 되돌아보고,<br>정리할 수 있을 것입니다.</p><br>
+        <p>Christmas Q25가<br>1년동안의 소중했던 추억,<br>행복했던 기억,<br>고마웠던 사람을 떠올리게 하는<br>
+            따뜻한 매개체가 되길 바라며</p><br>
+        <p>모든 사용자분들의 행복한 연말을 기원합니다.</p><br>
+        <div id="fromteam">team name<span><img src="./assets/02_stamp_empty.png" id="stampimg">&nbsp;올림&nbsp;&nbsp;</span></div>
       </div>
       <div><button @click="introBtnOff" type="button" class="btn" id="closeBtn">닫기</button></div>
     </div>
   </div>
 
-  <div v-if="complete_page==true">
+  <!-- <div v-if="complete_page==true">
      <div class="container">
         <div id="title">Christmas Q25</div>
         <div class="subtitle">- 당신의 1년을 정리하는 25개의 질문 -</div>
@@ -42,26 +41,50 @@
         </div>
         <div><button type="button" @click="togo_login_page" class="btn">바로가기</button></div>
     </div>
-  </div>
+  </div> -->
 
   <div v-if="login_page==true">
     <div class="container">
       <div id="title">Christmas Q25</div>
       <div class="subtitle">- 당신의 1년을 정리하는 25개의 질문 -</div>
-      <div id="logo">로고</div>
+      <div><img id="logo_2" src="./assets/christmas-wreath.png"></div>
       <div style="color: white; text-align: center;">
-        <div>어서오세요 <span class="userName">{{nickname}}</span>님!</div>
-        <div>메리크리스마스<span style="font-size: 20px;">&#x1F384;</span></div>
+        <div id="welcomeWord">어서오세요<br>
+        메리크리스마스 :)</div>
       </div>
       <form action="" method="post">
         <div>
-          <input type="password" placeholder="비밀번호를 입력해주세요." id="password" name="pw" required>
+          <input type="email" placeholder="이메일을 입력해주세요" v-model="email" id="inputBox" name="userEmail" required>
         </div>
+        <div>
+          <input type="password" placeholder="비밀번호를 입력해주세요" v-model="password" id="inputBox" name="userPw" required>
+        </div>
+        <div><input type="submit" value="로그인" @click="togo_Qlist_page" id="loginBtn"></div>
       </form>
-      <div><button type="button" @click="togo_Qlist_page" class="btn">시작하기</button></div>
-      <div><button type="button" class="btn">비밀번호 찾기</button></div>
-      <div style="color: white;">teamname</div>
+      <!-- 로그인 버튼에 @click="checkInfo" 나중에 넣기 -->
+      
+      <div class="inlineBtn">
+        <button type="button" @click="signUpBtnOn" id="signupBtn">회원가입</button>
+        <span style="color: white;">|</span>
+        <button type="button" @click="pwBtnOn" id="pwfindBtn">비밀번호 찾기</button>
+      </div>
+      <div id="teamname">teamname</div>
     </div>
+
+  <!-- 로그인 실패 모달창 페이지 -->
+    <!-- <div class="black-bg" v-if="unknownEmail == true">
+      <div class="white-bg">
+        <p>등록되지 않은 이메일입니다</p>
+        <p @click="checkInfo = false" class="ok">확인</p>
+      </div>
+    </div>
+
+    <div class="black-bg" v-if="unknownPw == true">
+      <div class="white-bg">
+        <p>잘못된 비밀번호입니다</p>
+        <p @click="checkInfo = false" class="ok">확인</p>
+      </div>
+    </div> -->
 
   </div>
   
@@ -217,7 +240,7 @@ export default {
       complete_page : false,
       login_page : false,
 
-      email : 'user@gmail.com',
+      email : '',
 
       nickName : 'nickName 데이터',
       질문데이터 : '부여된 랜덤 질문 리스트 데이터',
@@ -229,7 +252,10 @@ export default {
       chkNum: /[0-9]/,
       chkEng: /[a-zA-Z]/,
       chkEmail: false,
-      emailOpen: false
+      emailOpen: false,
+
+      // unknownEmail: false,
+      // unknownPw: false
     }
   },
   methods: {
@@ -242,7 +268,7 @@ export default {
       this.introduction_page=false;
     },
     signUpBtnOn(){
-      this.start_page=false;
+      this.login_page=false;
       this.signUp_page=true;
     },
     // 닫기버튼이 아직 없어서 적용못함
@@ -250,11 +276,11 @@ export default {
       this.signUp_page=false;
     },
     pwBtnOn(){
-      this.start_page=false;
+      this.login_page=false;
       this.pw_find_page=true;
     },
     togo_login_page(){
-      this.complete_page=false;
+      this.start_page=false;
       this.login_page=true;
     },
     togo_Qlist_page(){
@@ -277,7 +303,7 @@ export default {
         this.emailOpen = true;
       }
       else {
-        this.complete_page=true;
+        this.login_page=true;
         this.signUp_page=false;
       }
     },
@@ -301,7 +327,20 @@ export default {
     },
     chkOverlap(){
       this.chkEmail = true;
-    }
+    },
+    // checkInfo(e){
+    //   e.preventDefault();
+    //   if (this.email != email){
+    //     this.unknownEmail = true;
+    //   }
+    //   if (this.password != password){
+    //     this.unknownPw = true;
+    //   }
+    //   else {
+    //   this.Q_list_page = true;
+    //   this.login_page = false;
+    //   }
+    // }
   },
   components: {
   }
@@ -318,7 +357,7 @@ export default {
 }
 #app {
   margin-top: 20px;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -357,50 +396,85 @@ body {
     margin: 0 auto;
 }
 
-.btn {
-    margin: 7px;
-    background-color: white;
-    border: none;
-    border-radius: 3px;
-    width: 170px; height: 42px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
+body {
+    font-family: 'NanumSquareRound';
 }
 
 #title {
     color: #FFF500;
-    font-family: 'OFL Sorts Mill Goudy TT';
+    font-family: 'Sorts Mill Goudy', serif;
     font-size: 50px;
-    margin-top: 50px;
 }
 
-#logo {
-    color: black;
-    width: 50px;
-    padding: 60px;
-    border: 1px solid black;
-    margin: 40px;
-    padding-top: 70px;
-    padding-bottom: 70px;
-    text-align : center;
+.subtitle {
+    color: white;
+    font-family: 'NanumSquareRound';
+    font-size: 16px;
+}
 
+.btn {
+    margin: 7px;
     background-color: white;
+    border: none;
+    border-radius: 6px;
+    width: 170px; height: 42px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'NanumSquareRound';
 }
 
-#introductionBox {
-    /* border: 1px solid black; */
-    /* width: 315px;
-    height: 360px; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 25px;
+#teamname {
+  color: white;
+  /* teamname을 맨 아래 고정시키는건 위에 있는 요소에 margin bottom 해서 하기. teamname에 마진탑 주면 로그인페이지에서 teamname이 아래로 밀림 */
+}
+
+/* 가입전 시작 view css */
+#startBtn {
+  margin-top: 23px;
+  margin-bottom: 33px;
+}
+
+#logo_1 {
+    width: 202px;
+    height: 202px;
+    
+    /* padding: 60px; */
+    display: block;
+    margin: 0 auto;
+    margin-top: 57px;
+    margin-bottom: 56px;
+}
+
+/* 소개view css */
+.introductionBox {
+    padding: 20px;
     border-radius: 5px;
     background-color: #F4E7B6;
+    width: 305px;
 
     margin: 30px;
+    margin-bottom: 10px;
+    font-family: 'NanumSquareRound';
+    font-weight: bold;
+}
+
+#fromteam {
+  display: flex;
+  float: right;
+}
+
+#stampimg {
+  width: 53px;
+  height: 59px;
+  position: absolute;
+}
+
+/* 가입완료view css */
+/* #usermail {
+    text-decoration-line: underline;
+    color: blue;
+    text-align: center;
 }
 
 #Registration {
@@ -412,37 +486,66 @@ body {
     text-align: center;
 
     background-color: white;
-}
+} */
 
-#backBtn {
-    background-color:rgba(0,0,0,0);
-    color: #0D86FE;
-    font-weight: bold;
-    border-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-.subtitle {
-    color: white;
-}
-
-#password {
-    width: 170px; height: 30px;
-    border-radius: 3px;
+/* 가입후 시작 view css */
+#inputBox {
+    width: 200px; height: 41px;
+    border-radius: 5px;
     border: none;
     margin: 5px;
     text-align: center;
+    margin-bottom: 13px;
 }
 
-body {
+#loginBtn {
+    background-color: white;
+    border: none;
+    border-radius: 6px;
+    width: 110px; height: 42px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
     font-family: 'NanumSquareRound';
+
+    margin-top: 8px;
+    margin-bottom: 20px;
 }
 
-#usermail {
-    text-decoration-line: underline;
-    color: blue;
-    text-align: center;
+.inlineBtn {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+#signupBtn, #pwfindBtn {
+  border: none;
+  color: white;
+  background-color: transparent;
+  font-size: 16px;
+  font-family: 'NanumSquareRound';
+  cursor: pointer;
+}
+
+#signupBtn {
+  margin-right: 10px;
+}
+
+#pwfindBtn {
+  margin-left: 10px;
+}
+
+#logo_2 {
+    width: 133px;
+    height: 133px;
+    
+    display: block;
+    margin: 0 auto;
+    margin-top: 25px;
+    margin-bottom: 22px;
+}
+
+#welcomeWord {
+  margin-bottom: 24px;
 }
 
 /* 미니 */
