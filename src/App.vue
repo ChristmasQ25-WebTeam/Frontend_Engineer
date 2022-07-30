@@ -77,6 +77,7 @@
       </div>
     </div> -->
 
+    </div>
   </div>
   
   <!-- 자몽 : 비번찾기 view -->
@@ -901,11 +902,9 @@ span {vertical-align: baseline;}
   font-family: 'NanumSquareRound';
 }
 
-#app {
+/* #app {
   padding-top: 0;
-  /* padding: 0; */
-  /* position: relative; */
-}
+} */
 #wrap1 {
   text-align: left;
   height: 62px;
