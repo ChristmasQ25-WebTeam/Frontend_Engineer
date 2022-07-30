@@ -69,15 +69,6 @@
         <button type="button" @click="pwBtnOn" id="pwfindBtn">비밀번호 찾기</button>
       </div>
       <div id="teamname">teamname</div>
-    </div>
-
-  <!-- 로그인 실패 모달창 페이지 -->
-    <!-- <div class="black-bg" v-if="unknownEmail == true">
-      <div class="white-bg">
-        <p>등록되지 않은 이메일입니다</p>
-        <p @click="checkInfo = false" class="ok">확인</p>
-      </div>
-    </div>
 
     <div class="black-bg" v-if="unknownPw == true">
       <div class="white-bg">
@@ -356,22 +347,24 @@
     <div class="title">
       <div><span class="userName">{{nickName}}</span>'s</div> 
       <div>Christmas Q25</div>
+      <div id="title_line"></div>
+      <p>당신의 1년을 정리하는 25개의 질문</p>
+      <p> 선물상자는 1번부터 열어주세요 :) </p>
     </div>
     
     <div class="newcontents">
-      <p>당신의 1년을 정리하는 25개의 질문</p>
       <div v-for="i in 8" :key="i">
-        <div @click="random_Q" v-for="j in 3" :key="j">
-          <!-- <img src="./assets/box/{{3*(i-1)+j}}.png" alt=""> -->
-          <!-- <img src="'./assets/box/'+ {{3*(i-1)+j}} + '.png'" alt="" id='giftbox'> -->
+        <div @click="questionList" v-for="j in 3" :key="j">
           <img :src="require(`@/assets/box/${3*(i-1)+j}.png`)" alt="" id='giftbox'>
+          {{3*(i-1)+j}}
         </div>
-        <div v-if='i==8'>25</div>
+        <div @click="questionList" v-if='i==8'>
+          <img src="./assets/box/25.png" alt="" id="giftbox_25">
+          25
+        </div>
       </div>
-      <button>답변 모아보기</button>
+      <button id="answer_group" @click="togo_answerGrouping_page">답변 모아보기</button>
     </div>
-
-    <!-- <img :src="require(`@/assets/images/${img}`)" />  -->
 
   </div>
 
@@ -474,6 +467,9 @@ export default {
     },
     togo_setting_page(){
       this.setting_page = true;
+    },
+    togo_answerGrouping_page(){
+      this.Q_list_page=false;
     },
 
     random_Q(){
@@ -638,7 +634,7 @@ export default {
 body {
   margin: 0;
   display: flex;
-  background-color: #fff;
+  background-color: #920000;
   align-items:  center;
   justify-content: center;
 } 
@@ -1143,7 +1139,15 @@ span {vertical-align: baseline;}
 /* 엘 */
 #Q_list_page {
   overflow: scroll;
+
   position: relative;
+
+  /* position: relative; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
 }
 #Q_list_page #setting {
   position: absolute;
@@ -1157,31 +1161,94 @@ span {vertical-align: baseline;}
   color: #FFF500;
   font-size: 30px;
   font-weight: 600;
-}
-
-.newcontents {
+  /* position: fixed; */
+  top: 80px;
+  /* position: absolute; */
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
+  margin-bottom: 25px;
+  /* padding: 0px 60px 20px 60px; */
+  
+  background-color: #920000;
+}
+.title > #title_line {
+  height: 1px;
+  width: 330px;
+  background-color: rgba(255, 255, 255, 0.646);
+  border-radius: 1px;
+  margin: 34px 0 30px 0;
+
+}
+.title > p {
+  font-family: 'NanumSquareRound';
+  color: white;
+  font-size: 16px;
+  font-weight: normal;
+}
+.title > p:nth-child(5){
+  color: rgba(255, 255, 255, 0.742);
+  font-size: 13px;
+  margin-top: 5px;
+}
+.newcontents {
+  height: 450px;
+  width: 350px;
+  display: flex;
+  /* position: sticky; */
+  overflow: scroll;
+  flex-direction: column;
+  align-items: center;
+  /* margin-top: 30px; */
+  /* padding-top: 175px; */
+  background-color: #9b1010;
+  border-radius: 10px;
+
 }
 .newcontents > p {
   font-family: 'NanumSquareRound';
   color: white;
 }
 .newcontents > div {
+  font-family: 'OFL Sorts Mill Goudy TT';
+  font-size: 21px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  margin-top: 20px;
+}
+.newcontents > div > div {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  cursor: pointer;
+  margin: 0 16px;
 }
 #giftbox {
-  width: 80px;
-  height: 80px;
-  margin: 12px;
-  margin-bottom: 25px;
+  width: 73px;
+  height: 73px;
+  margin: 16px 0 5px 0;
   line-height: 100px;
+  
 }
-
+#giftbox_25{
+  width: 100px;
+  height: 100px;
+  margin-top: 36px;
+}
+#answer_group {
+  width: 120px;
+  height: 46px;
+  margin: 30px;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 13px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+  color: rgb(16, 16, 16);
+}
 
 /* 자몽 */
 .celebrate-illust {
