@@ -13,7 +13,7 @@
   </div>
 
   <div v-if="introduction_page==true">
-    <div class="container">    
+    <div class="container">
       <div id="title">Christmas Q25</div>
       <div class="subtitle">- 당신의 1년을 정리하는 25개의 질문 -</div>
       <div class="introductionBox">
@@ -62,7 +62,7 @@
         <div><input type="submit" value="로그인" @click="togo_Qlist_page" id="loginBtn"></div>
       </form>
       <!-- 로그인 버튼에 @click="checkInfo" 나중에 넣기 -->
-      
+
       <div class="inlineBtn">
         <button type="button" @click="signUpBtnOn" id="signupBtn">회원가입</button>
         <span style="color: white;">|</span>
@@ -79,7 +79,7 @@
 
     </div>
   </div>
-  
+
   <!-- 자몽 : 비번찾기 view -->
   <div v-if="pw_find_page == true">
     <!--모달창-->
@@ -168,7 +168,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="content">
       <div id="wrap1">
         <i class="material-icons">keyboard_arrow_left</i>
@@ -213,7 +213,7 @@
         <button class="finish-btn" @click="submit">완료</button>
       </div>
     </div>
-    
+
   </div>
 
   <!-- 미니 : 비번변경 view -->
@@ -352,20 +352,20 @@
       </div>
     </div>
   </div>
-  
+
 
   <!-- 엘 : 질문리스트 view-->
   <div v-if="Q_list_page==true" id="Q_list_page">
     <img id="setting" src="../src/assets/09_setting.png" alt="설정" @click="togo_setting_page">
 
     <div class="title">
-      <div><span class="userName">{{nickName}}</span>'s</div> 
+      <div><span class="userName">{{nickName}}</span>'s</div>
       <div>Christmas Q25</div>
       <div id="title_line"></div>
       <p>당신의 1년을 정리하는 25개의 질문</p>
       <p> 선물상자는 1번부터 열어주세요 :) </p>
     </div>
-    
+
     <div class="newcontents">
       <div v-for="i in 8" :key="i">
         <div @click="questionList" v-for="j in 3" :key="j">
@@ -433,7 +433,7 @@ export default {
       chknewPw: true,
       pk_find_modal: false,
       no_email_modal: false,
-      
+
     }
   },
   methods: {
@@ -598,7 +598,7 @@ export default {
         this.RePw = false;
       }
     },
-    
+
     // checkInfo(e){
     //   e.preventDefault();
     //   if (this.email != email){
@@ -655,7 +655,7 @@ body {
   background-color: #920000;
   align-items:  center;
   justify-content: center;
-} 
+}
 
 /* 리지 */
 .container {
@@ -709,7 +709,7 @@ body {
 #logo_1 {
     width: 202px;
     height: 202px;
-    
+
     /* padding: 60px; */
     display: block;
     margin: 0 auto;
@@ -808,7 +808,7 @@ body {
 #logo_2 {
     width: 133px;
     height: 133px;
-    
+
     display: block;
     margin: 0 auto;
     margin-top: 25px;
@@ -986,10 +986,10 @@ span {vertical-align: baseline;}
   padding: 14px 0 0 0;
 }
 #wrap2 li {
-  
+
 }
 #wrap2 li .label-box {
-  
+
 }
 #wrap2 li .label-box span {
   font-weight: 800;
@@ -1184,7 +1184,7 @@ span {vertical-align: baseline;}
   flex-direction: column;
   margin-bottom: 25px;
   /* padding: 0px 60px 20px 60px; */
-  
+
   background-color: #920000;
 }
 .title > #title_line {
@@ -1245,7 +1245,7 @@ span {vertical-align: baseline;}
   height: 73px;
   margin: 16px 0 5px 0;
   line-height: 100px;
-  
+
 }
 #giftbox_25{
   width: 100px;
@@ -1398,6 +1398,7 @@ header {
   font-weight: bold;
   color: #920000;
   margin-top: 30px;
+
 }
 
 /* - 메인컬러
