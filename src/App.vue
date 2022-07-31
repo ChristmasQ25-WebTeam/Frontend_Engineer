@@ -13,7 +13,7 @@
   </div>
 
   <div v-if="introduction_page==true">
-    <div class="container">    
+    <div class="container">
       <div id="title">Christmas Q25</div>
       <div class="subtitle">- 당신의 1년을 정리하는 25개의 질문 -</div>
       <div class="introductionBox">
@@ -62,7 +62,7 @@
         <div><input type="submit" value="로그인" @click="togo_Qlist_page" id="loginBtn"></div>
       </form>
       <!-- 로그인 버튼에 @click="checkInfo" 나중에 넣기 -->
-      
+
       <div class="inlineBtn">
         <button type="button" @click="signUpBtnOn" id="signupBtn">회원가입</button>
         <span style="color: white;">|</span>
@@ -79,38 +79,39 @@
 
     </div>
   </div>
-  
+
   <!-- 자몽 : 비번찾기 view -->
   <div v-if="pw_find_page == true">
+
     <!--모달창-->
-    <div class="modal_bg" v-if="pk_find_modal == true">
+    <!--<div class="modal_bg" v-if="pk_find_modal == true">
       <div class="pw_find_modalbox">
         <div class="password_represent">
-          <span class="title">임시 비밀번호를</span>
-          <span class="title">발송하였습니다</span>
+          <span class="jm_modal_title">임시 비밀번호를</span>
+          <span class="jm_modal_title">발송하였습니다</span>
           <span class="mail">메일함을 확인해주세요</span>
           <hr />
           <span @click="pk_find_modal = false" class="ok">확인</span>
         </div>
       </div>
-    </div>
+    </div>-->
 
     <!--이메일 없는 경우 모달창 ) API작업후 추가-->
-    <!--<div class="modal_bg" v-if="no_email_modal == true">
+    <div class="modal_bg" v-if="no_email_modal == true">
       <div class="no_email_modalbox">
-        <div class=  "password_represent">
-          <span class="title">등록되지 않은</span>
-          <span class="title">이메일입니다</span>
+        <div class= "password_represent">
+          <span class="jm_modal_title">등록되지 않은</span>
+          <span class="jm_modal_title">이메일입니다</span>
           <hr>
         <span @click="no_email_modal= false" class="ok">확인</span>
         </div>
       </div>
-      </div>-->
+      </div>
 
     <!--임시 비밀번호 발송 메인창-->
 
     <header class="home_icon">
-      <i class="material-icons">keyboard_arrow_left</i>
+      <i @click="home_button" class="material-icons">keyboard_arrow_left</i>
       <!-- <img @click="home_button" alt="Vue logo" src="./assets/left-arrow.png" /> -->
       <span class="back">홈으로</span>
     </header>
@@ -138,8 +139,7 @@
     <div id="wrap3">
       <button class="finish-btn2" @click="no_email_modal = true">완료</button>
     </div>
-  </div>
-
+</div>
   <!-- 미니 : 회원가입 view-->
   <div v-if="signUp_page==true" id="signUp_page">
     <div class="modal">
@@ -168,7 +168,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="content">
       <div id="wrap1">
         <i class="material-icons">keyboard_arrow_left</i>
@@ -213,7 +213,7 @@
         <button class="finish-btn" @click="submit">완료</button>
       </div>
     </div>
-    
+
   </div>
 
   <!-- 미니 : 비번변경 view -->
@@ -291,7 +291,7 @@
     </div>
     <div class="content">
       <div id="wrap1">
-        <i class="material-icons">keyboard_arrow_left</i>
+        <i @click="back_button" class="material-icons" >keyboard_arrow_left</i>
       </div>
       <div id="wrap2">
         <h3>Bye, Bye</h3>
@@ -352,20 +352,20 @@
       </div>
     </div>
   </div>
-  
+
 
   <!-- 엘 : 질문리스트 view-->
   <div v-if="Q_list_page==true" id="Q_list_page">
     <img id="setting" src="../src/assets/09_setting.png" alt="설정" @click="togo_setting_page">
 
     <div class="title">
-      <div><span class="userName">{{nickName}}</span>'s</div> 
+      <div><span class="userName">{{nickName}}</span>'s</div>
       <div>Christmas Q25</div>
       <div id="title_line"></div>
       <p>당신의 1년을 정리하는 25개의 질문</p>
       <p> 선물상자는 1번부터 열어주세요 :) </p>
     </div>
-    
+
     <div class="newcontents">
       <div v-for="i in 8" :key="i">
         <div @click="questionList" v-for="j in 3" :key="j">
@@ -395,7 +395,7 @@ export default {
     return{
       start_page : true,
       introduction_page : false,
-      Q_list_page : true,
+      Q_list_page : false,
       pw_find_page : false,
       signUp_page : false,
       complete_page : false,
@@ -433,7 +433,7 @@ export default {
       chknewPw: true,
       pk_find_modal: false,
       no_email_modal: false,
-      
+
     }
   },
   methods: {
@@ -488,6 +488,14 @@ export default {
     },
     togo_answerGrouping_page(){
       this.Q_list_page=false;
+    },
+    home_button(){
+      this.pw_find_page=false;
+      this.login_page=true;
+    },
+    back_button(){
+      this.goodbye_page==true
+      this.Q_list_page==false;
     },
 
     random_Q(){
@@ -598,7 +606,7 @@ export default {
         this.RePw = false;
       }
     },
-    
+
     // checkInfo(e){
     //   e.preventDefault();
     //   if (this.email != email){
@@ -640,7 +648,6 @@ export default {
   background-color: #920000;
   border-radius: 5px;
   padding: 20px;
-  padding-top: 70px;
   width: 360px;
   height: 640px;
 }
@@ -652,10 +659,10 @@ export default {
 body {
   margin: 0;
   display: flex;
-  background-color: #920000;
+  background-color: #fff;
   align-items:  center;
   justify-content: center;
-} 
+}
 
 /* 리지 */
 .container {
@@ -709,7 +716,7 @@ body {
 #logo_1 {
     width: 202px;
     height: 202px;
-    
+
     /* padding: 60px; */
     display: block;
     margin: 0 auto;
@@ -808,7 +815,7 @@ body {
 #logo_2 {
     width: 133px;
     height: 133px;
-    
+
     display: block;
     margin: 0 auto;
     margin-top: 25px;
@@ -986,10 +993,10 @@ span {vertical-align: baseline;}
   padding: 14px 0 0 0;
 }
 #wrap2 li {
-  
+
 }
 #wrap2 li .label-box {
-  
+
 }
 #wrap2 li .label-box span {
   font-weight: 800;
@@ -1184,7 +1191,7 @@ span {vertical-align: baseline;}
   flex-direction: column;
   margin-bottom: 25px;
   /* padding: 0px 60px 20px 60px; */
-  
+
   background-color: #920000;
 }
 .title > #title_line {
@@ -1245,7 +1252,7 @@ span {vertical-align: baseline;}
   height: 73px;
   margin: 16px 0 5px 0;
   line-height: 100px;
-  
+
 }
 #giftbox_25{
   width: 100px;
@@ -1270,7 +1277,7 @@ span {vertical-align: baseline;}
 header {
   display: flex;
   justify-content: flex-start;
-  padding: 20px 0px 0px 0px;
+  padding: 10px 0px 0px 0px;
 }
 
 .home_icon .material-icons {
@@ -1330,19 +1337,20 @@ header {
 /*모달창 css*/
 
 .modal_bg {
-  width: 100%;
-  height: 100%;
+  width: 400px;
+  height: 700px;
   background: rgba(223, 221, 221, 0.7);
   position: fixed;
   right: 275px;
-  bottom: 0;
+  bottom: 10;
   left: 0;
   right: 0;
   top: 0;
   margin: auto;
 }
 
-/*.no_email_modalbox{
+
+.no_email_modalbox{
     position: fixed;
     top: -140px;
     bottom: 0;
@@ -1353,9 +1361,9 @@ header {
     border-radius: 8px;
     width: 260px;
     height: 140px;
-}*/
+}
 
-.pw_find_modalbox {
+/*.pw_find_modalbox {
   position: fixed;
   top: -140px;
   bottom: 0;
@@ -1366,14 +1374,13 @@ header {
   border-radius: 8px;
   width: 260px;
   height: 170px;
-}
-
+}*/
 .modal_bg .password_represent {
   display: flex;
   flex-direction: column;
   padding: 15px;
 }
-.modal_bg .password_represent .title {
+.modal_bg .password_represent .jm_modal_title {
   font-family: "NanumSquareRound";
   color: black;
   font-size: 18px;
