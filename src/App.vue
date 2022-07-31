@@ -81,50 +81,63 @@
   </div>
   
   <!-- 자몽 : 비번찾기 view -->
-  <div v-if="pw_find_page==true">
-    <!--비밀번호 재설정 링크 발송 모달창 -->
-    <div class="black-bg" v-if="ClickButton == true">
-      <div class="white-bg">
+  <div v-if="pw_find_page == true">
+    <!--모달창-->
+    <div class="modal_bg" v-if="pk_find_modal == true">
+      <div class="pw_find_modalbox">
         <div class="password_represent">
-        <span class="title">비밀번호 재설정 링크를</span>
-        <span class="title"> 발송하였습니다</span>
-        <span class="mail">메일함을 확인해주세요</span>
-        <hr width="220px">
-        <span @click="ClickButton= false" class="ok">확인</span>
+          <span class="title">임시 비밀번호를</span>
+          <span class="title">발송하였습니다</span>
+          <span class="mail">메일함을 확인해주세요</span>
+          <hr />
+          <span @click="pk_find_modal = false" class="ok">확인</span>
+        </div>
       </div>
     </div>
-  </div>
 
-
-    <!--비밀번호 재설정 링크 발송 모달창 (API 적용할때 추가예정)
-      <div class="black-bg" v-if="ClickButton == true">
-      <div class="white-bg">
+    <!--이메일 없는 경우 모달창 ) API작업후 추가-->
+    <!--<div class="modal_bg" v-if="no_email_modal == true">
+      <div class="no_email_modalbox">
         <div class=  "password_represent">
           <span class="title">등록되지 않은</span>
           <span class="title">이메일입니다</span>
-          <hr width="200px">
-          <span @click="ClickButton= false" class="ok">확인</span>
+          <hr>
+        <span @click="no_email_modal= false" class="ok">확인</span>
         </div>
       </div>
       </div>-->
 
+    <!--임시 비밀번호 발송 메인창-->
 
-      <div class="key_icon">
-      <img alt="Vue logo" src="./assets/key.png">
-      </div>
+    <header class="home_icon">
+      <i class="material-icons">keyboard_arrow_left</i>
+      <!-- <img @click="home_button" alt="Vue logo" src="./assets/left-arrow.png" /> -->
+      <span class="back">홈으로</span>
+    </header>
 
-      <div class="password_guide">
-        <div class="info1">이메일을 입력해주세요!</div>
-        <div class="info1">비밀번호 재설정 링크가 </div>
-        <div class="info1">발송됩니다</div>
-      </div>
+    <div class="key_icon">
+      <img alt="Vue logo" src="./assets/04_key.png" />
+    </div>
 
-      <div class="bottom_input">
-        <input type="text" name="" placeholder="이메일 입력해주세요 !">
-      </div>
+    <div class="password_guide">
+      <div class="info1">이메일을 입력해주세요!</div>
+      <div class="info1">임시 비밀번호가 발송됩니다.</div>
+    </div>
 
-      <button @click="ClickButton =true" class="next_button">완료</button>
+    <div>
+      <input
+        type="email"
+        placeholder="이메일을 입력해주세요"
+        v-model="email"
+        id="email_inputBox2"
+        name="userEmail"
+        required
+      />
+    </div>
 
+    <div id="wrap3">
+      <button class="finish-btn2" @click="no_email_modal = true">완료</button>
+    </div>
   </div>
 
   <!-- 미니 : 회원가입 view-->
@@ -418,6 +431,8 @@ export default {
       oldpwOpen: false,
       changepwOpen: false,
       chknewPw: true,
+      pk_find_modal: false,
+      no_email_modal: false,
       
     }
   },
@@ -441,6 +456,7 @@ export default {
     pwBtnOn(){
       this.login_page=false;
       this.pw_find_page=true;
+      this.Q_list_page = false;
     },
     togo_login_page(){
       this.start_page=false;
@@ -455,6 +471,7 @@ export default {
     togo_home(){
       this.goodbye_finish_page = false;
       this.start_page = true;
+      this.pw_find_page = false;
     },
     togo_changePw_page(){
       this.Q_list_page = false;
@@ -1250,85 +1267,138 @@ span {vertical-align: baseline;}
 }
 
 /* 자몽 */
-.celebrate-illust {
+header {
   display: flex;
-  width: 300px;
-  height: 300px;
-  background: rgba(0, 0, 0, 0.3);
-  margin: 20px;
+  justify-content: flex-start;
+  padding: 20px 0px 0px 0px;
 }
 
-.user-email {
-  color: darkcyan;
+.home_icon .material-icons {
+  color: #fff;
+  font-size: 42px;
+  font-weight: 800;
 }
-.key_icon img{
-  width:150px;
-}
-.password_guide{
-  display: flex;
-  flex-direction: column;
-  margin-top:60px;
-  font-size:23px;
-  font-weight: bold;
-}
-.bottom_input{
-  margin-top:70px;
-}
-.bottom_input input{
-  width:220px;
-  height: 30px;
-}
-.next_button{
-  margin-top:50px;
-  width:100px;
-  height: 25px;
-}
-/*모달창 css*/
-.password_represent{
-  display: flex;
-  flex-direction: column;
-  padding:15px;
-}
-.password_represent .title{
+
+/* .home_icon img {
+  width: 20px;
+  padding-right: 15px;
+} */
+
+.home_icon .back {
+  color: white;
+  padding-top: 8px;
+  padding-right: 260px;
   font-size: 20px;
-  font-weight: bold;
+  font-family: "NanumSquareRound";
+  font-weight: 800;
 }
-.password_represent .mail{
- padding-top:20px;
- font-size:15px;
+
+#email_inputBox2 {
+  width: 220px;
+  height: 25px;
+  border-radius: 5px;
+  border: none;
+  margin: 5px;
+  text-align: center;
+  margin-top: 50px;
 }
-.password_represent .ok{
-  padding-top: 27px;
-  font-size:13px;
-  font-weight: bold;
-  color:#920000;
+
+.key_icon img {
+  padding-top: 100px;
+  width: 120px;
 }
-  .black-bg{
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 1000px; /*100%*/
-    width: 1000px; /*100%*/
+.password_guide {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+  font-size: 18px;
+  color: white;
 }
-  hr{
-    height: 2px;
-    margin-top:40px;
-    background-color: rgb(8, 8, 8);
-    border: 0;
-  }
-  .white-bg{
+
+.finish-btn2 {
+  font-family: "NanumSquareRound";
+  font-size: 16px;
+  font-weight: 800;
+  background: #fff;
+  border: none;
+  border-radius: 6px;
+  width: 168px;
+  height: 42px;
+  margin-top: 100px;
+}
+
+/*모달창 css*/
+
+.modal_bg {
+  width: 100%;
+  height: 100%;
+  background: rgba(223, 221, 221, 0.7);
+  position: fixed;
+  right: 275px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: auto;
+}
+
+/*.no_email_modalbox{
     position: fixed;
-    top: 55px;
+    top: -140px;
     bottom: 0;
     left: 0;
     right: 0;
     margin: auto;
     background:#F4E7B6;
     border-radius: 8px;
-    width: 300px;
-    height: 220px;
-  }
+    width: 260px;
+    height: 140px;
+}*/
 
+.pw_find_modalbox {
+  position: fixed;
+  top: -140px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background: #f4e7b6;
+  border-radius: 8px;
+  width: 260px;
+  height: 170px;
+}
+
+.modal_bg .password_represent {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+.modal_bg .password_represent .title {
+  font-family: "NanumSquareRound";
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+.modal_bg .password_represent .mail {
+  font-family: "NanumSquareRound";
+  color: black;
+  font-size: 15px;
+  font-weight: 1000;
+  margin-top: 10px;
+}
+.modal_bg hr {
+  background-color: rgb(57, 56, 56);
+  border: 0;
+  height: 0.8px;
+  margin-top: 10px;
+}
+
+.modal_bg .password_represent .ok {
+  font-size: 13px;
+  font-weight: bold;
+  color: #920000;
+  margin-top: 30px;
+}
 
 /* - 메인컬러
     - 배경색(red) : 920000
