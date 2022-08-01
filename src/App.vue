@@ -136,10 +136,57 @@
       />
     </div>
 
-    <div id="wrap3">
-      <button class="finish-btn2" @click="no_email_modal = true">완료</button>
-    </div>
+      <button class="jm_finish-btn" @click="no_email_modal = true">완료</button>
 </div>
+
+<!-- 자몽: 질문 답변하기 디자인 view -->
+
+<!--아직 상세페이지 25개 연결을 구현하는 상태이기는 한데 다른페이지 구현하실때
+이 페이지가 혹시나 필요하실까 하고 깃허브에 합쳐서 올려둡니다!
+페이지 구현하실때마다 깃허브에 올려주시면 코드 작업할때
+조금 더 수월하게 작업할수 있을것 같습니다. 감사합니다.-->
+
+<!--글 발행기능 아직 구현 X => 공부필요-->
+  <div v-if="qna_request_page==true">
+
+<div class ="qna_requset_header">
+  <i class="material-icons">keyboard_arrow_left</i>
+  <span class="request_day_number">{{day}}</span>
+</div>
+
+<div class="qna_request_header_hr">
+<hr>
+</div>
+
+<div class="request_img_icon">
+<img src="./assets/12_essQ_pic01.png" alt="">
+</div>
+
+<div class="request_question">
+  <span class = "question_number">{{question_num}}</span>
+  <span class = "question_contents">{{question_contents_1}}</span>
+  <span class = "question_contents">{{question_contents_2}}</span>
+</div>
+
+<!--답변창 180글자까지만 작성 가능  -->
+<form id= "request_textarea" action="" method="POST">
+<textarea v-model="qna_request" cols="40" rows="10"  placeholder="행복했던 순간을 떠올려보세요:)" maxlength="150"></textarea>
+<br/>
+<span id="counter">({{qna_request.length}}자 / 최대 180자)</span>
+</form>
+
+<!--공유하기 버튼
+<div class="requset_share">
+  <span class ="text">내 답변 공유하기</span>
+  <img src="./assets/08_share.png" alt="">
+</div>-->
+
+<div id="jm_button">
+<button class="jm_finish-btn2" @click="submit">완료</button>
+</div>
+  </div>
+
+
   <!-- 미니 : 회원가입 view-->
   <div v-if="signUp_page==true" id="signUp_page">
     <div class="modal">
@@ -388,7 +435,6 @@
 
 <script>
 
-
 export default {
   name: 'App',
   data() {
@@ -404,6 +450,7 @@ export default {
       goodbye_finish_page : false,
       changePw_page : false,
       setting_page : false,
+      qna_request_page:false,
 
       email : '',
 
@@ -433,7 +480,11 @@ export default {
       chknewPw: true,
       pk_find_modal: false,
       no_email_modal: false,
-
+      day:'Day 4',
+      question_num:'Q4.',
+      question_contents_1:'이번년도에 가장 행복했던 순간은 언제인가요?',
+      question_contents_2:'누구와 함께였나요?',
+      qna_request:[]
     }
   },
   methods: {
@@ -494,8 +545,8 @@ export default {
       this.login_page=true;
     },
     back_button(){
-      this.goodbye_page==true
-      this.Q_list_page==false;
+      this.goodbye_page=true
+      this.Q_list_page=false;
     },
 
     random_Q(){
@@ -1162,7 +1213,6 @@ span {vertical-align: baseline;}
 /* 엘 */
 #Q_list_page {
   overflow: scroll;
-
   position: relative;
 
   /* position: relative; */
@@ -1273,7 +1323,7 @@ span {vertical-align: baseline;}
   color: rgb(16, 16, 16);
 }
 
-/* 자몽 */
+/* 자몽 - 임시 비밀번호 찾기 css */
 header {
   display: flex;
   justify-content: flex-start;
@@ -1322,7 +1372,7 @@ header {
   color: white;
 }
 
-.finish-btn2 {
+.jm_finish-btn {
   font-family: "NanumSquareRound";
   font-size: 16px;
   font-weight: 800;
@@ -1334,7 +1384,7 @@ header {
   margin-top: 100px;
 }
 
-/*모달창 css*/
+/*자몽 - 임시 비밀번호 찾기 - 모달창 css*/
 
 .modal_bg {
   width: 400px;
@@ -1406,6 +1456,111 @@ header {
   color: #920000;
   margin-top: 30px;
 }
+
+/* 자몽 - 질문 답변하기 css */
+
+.qna_requset_header{
+  display: flex;
+  align-content: center;
+  justify-content:space-evenly;
+  padding-right:145px;
+}
+
+.qna_requset_header .material-icons {
+  color: #fff;
+  font-size: 42px;
+  font-weight: 800;
+}
+.qna_request_header_hr hr {
+  background-color: rgb(215, 213, 213);
+  border: 0;
+  height: 0.8px;
+  margin-top: 10px;
+  width:130px;
+  margin-left : auto;
+  margin-right : auto;
+}
+
+.qna_requset_header .request_day_number{
+  padding-left:90px;
+}
+
+.request_img_icon img{
+  width: 170px;
+  height: 170px;
+  padding-top: 20px;
+}
+
+.request_day_number {
+  font-size: 30px;
+  color: #FFFFFF;
+  font-family: "NanumSquareRound";
+  font-weight: 800
+}
+
+.question_number{
+  padding: 6px;
+}
+
+.request_question{
+  display: flex;
+  flex-direction: column;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+textarea:focus {outline: none;}
+textarea::placeholder {
+	color: #ccc;
+  padding: 20px 5px;
+}
+
+#request_textarea{
+  margin-top: 30px;
+}
+
+#request_textarea textarea{
+  width:270px;
+  height: 160px;
+  border-radius: 2%;
+  border: none;
+  resize: none;
+}
+#request_textarea #counter{
+color:rgb(188, 187, 187);
+font-size: 13px;
+padding-left:150px;
+}
+
+.jm_finish-btn2{
+  font-family: "NanumSquareRound";
+  font-size: 16px;
+  font-weight: 800;
+  background: #fff;
+  border: none;
+  border-radius: 6px;
+  width: 120px;
+  height: 42px;
+  margin-top: 40px;
+}
+
+/* 공유하기 버튼
+.requset_share{
+  font-family: "NanumSquareRound";
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  padding:10px 0px 0px 80px ;
+
+}
+.requset_share img{
+  width: 20px;
+  height:20px;
+  padding-left: 15px;
+}
+*/
+
 
 /* - 메인컬러
     - 배경색(red) : 920000
