@@ -75,7 +75,7 @@
         <p>잘못된 비밀번호입니다</p>
         <p @click="checkInfo = false" class="ok">확인</p>
       </div>
-    </div> -->
+    </div>
 
     </div>
   </div>
@@ -202,12 +202,19 @@
           <button @click="check">확인</button>
         </div>
       </div>
-      <div class="modal_background check-email" v-if="emailOpen == true">
+      <div class="modal_background check-email_form" v-if="emailformOpen == true">
         <div class="modal_box">
-          <h4>이메일 중복확인을<br>완료해주세요</h4>
+          <h4>이메일 형식을 확인해주세요</h4>
           <button @click="check">확인</button>
         </div>
       </div>
+      <!-- api 연동 후 사용할 것 -->
+      <!-- <div class="modal_background check-email" v-if="emailOpen == true">
+        <div class="modal_box">
+          <h4>이미 등록된 이메일입니다</h4>
+          <button @click="check">확인</button>
+        </div>
+      </div> -->
       <div class="modal_background check-nickname" v-if="nickOpen == true">
         <div class="modal_box">
           <h4>닉네임을 입력해주세요</h4>
@@ -218,8 +225,8 @@
 
     <div class="content">
       <div id="wrap1">
-        <i class="material-icons">keyboard_arrow_left</i>
-        <span>홈으로</span>
+        <i class="material-icons" @click="togo_login_page">keyboard_arrow_left</i>
+        <span @click="togo_login_page">홈으로</span>
       </div>
       <div id="wrap2">
         <h3>Order</h3>
@@ -239,8 +246,8 @@
             <div class="input-box email-input">
               <input type="email" class="inputText" v-model="email" placeholder="이메일을 입력해주세요!">
               <br>
-              <button class="overlap-btn" @click="chkOverlap">중복확인</button>
-              <img src="../src/assets/05_check.png" alt="중복확인" v-if="chkEmail == true">
+              <!-- <button class="overlap-btn" @click="chkOverlap">중복확인</button>
+              <img src="../src/assets/05_check.png" alt="중복확인" v-if="chkEmail == true"> -->
             </div>
           </li>
           <li>
@@ -287,7 +294,7 @@
     </div>
     <div class="content">
       <div id="wrap1">
-        <i class="material-icons">keyboard_arrow_left</i>
+        <i class="material-icons" @click="togo_setting_page">keyboard_arrow_left</i>
       </div>
       <div id="wrap2">
         <h3>Change</h3>
@@ -338,7 +345,7 @@
     </div>
     <div class="content">
       <div id="wrap1">
-        <i @click="back_button" class="material-icons" >keyboard_arrow_left</i>
+        <i class="material-icons" @click="togo_setting_page">keyboard_arrow_left</i>
       </div>
       <div id="wrap2">
         <h3>Bye, Bye</h3>
@@ -463,6 +470,7 @@ export default {
       chkPw: true,
       chkNum: /[0-9]/,
       chkEng: /[a-zA-Z]/,
+      chkEmailForm: /^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
       chkEmail: false,
       emailOpen: false,
       pwformOpen: false,
@@ -477,6 +485,7 @@ export default {
       newpwOpen: false,
       oldpwOpen: false,
       changepwOpen: false,
+      emailformOpen: false,
       chknewPw: true,
       pk_find_modal: false,
       no_email_modal: false,
@@ -512,6 +521,7 @@ export default {
     togo_login_page(){
       this.start_page=false;
       this.login_page=true;
+      this.signUp_page = false;
     },
     togo_Qlist_page(){
       this.Q_list_page=true;
@@ -535,7 +545,10 @@ export default {
       this.goodbye_page = true;
     },
     togo_setting_page(){
+      this.Q_list_page = true;
       this.setting_page = true;
+      this.changePw_page = false;
+      this.goodbye_page = false;
     },
     togo_answerGrouping_page(){
       this.Q_list_page=false;
@@ -543,10 +556,6 @@ export default {
     home_button(){
       this.pw_find_page=false;
       this.login_page=true;
-    },
-    back_button(){
-      this.goodbye_page=true
-      this.Q_list_page=false;
     },
 
     random_Q(){
@@ -557,15 +566,21 @@ export default {
       e.preventDefault();
       if (this.nickName == ''){
         this.nickOpen = true;
-        this.emailOpen = false;
+        this.emailformOpen = false;
+        // this.emailOpen = false;
         this.pwOpen = false;
         this.pwformOpen = false;
       }
-      else if (this.chkEmail == false){
-        this.emailOpen = true;
+      else if (!this.chkEmailForm.test(this.email)){
+        this.emailformOpen = true;
         this.pwOpen = false;
         this.pwformOpen = false;
       }
+      // else if (this.chkEmail == false){
+      //   this.emailOpen = true;
+      //   this.pwOpen = false;
+      //   this.pwformOpen = false;
+      // }
       else if (this.password == ''){
         this.pwOpen = true;
         this.pwformOpen = false;
@@ -614,6 +629,7 @@ export default {
       this.pwOpen = false;
       this.emailOpen = false;
       this.pwformOpen = false;
+      this.emailformOpen = false;
       this.byeemailOpen = false;
       this.byepwOpen = false;
       this.oldpwOpen = false;
@@ -697,8 +713,8 @@ export default {
   align-items:  center;
   /* justify-content: center; */
   background-color: #920000;
-  border-radius: 5px;
-  padding: 20px;
+  /* border-radius: 5px; */
+  /* padding: 20px; */
   width: 360px;
   height: 640px;
 }
@@ -894,51 +910,51 @@ span {vertical-align: baseline;}
 }
 
 .modal_background {
-  width: 400px;
-  height: 660px;
+  width: 360px;
+  height: 640px;
   background: rgba(217,217,217,0.7);
   position: absolute;
-  left: -34px;
+  left: -19px;
 }
 #setting_page .modal_background {
-  width: 400px;
-  height: 660px;
+  width: 360px;
+  height: 640px;
   background: rgba(217,217,217,0.7);
   position: absolute;
-  left: -200px;
+  left: -180px;
 }
 .modal_background .modal_box {
-  width: 223px;
-  height: 110px;
+  width: 210px;
+  height: 100px;
   background: #F4E7B6;
   border-radius: 10px;
   padding: 16px;
-  margin: 246px 68px;
+  margin: 246px 59px;
 }
 #setting_page .modal_background .modal_box {
-  width: 223px;
+  width: 210px;
   height: 110px;
   background: #F4E7B6;
   border-radius: 10px;
   padding: 16px;
-  margin: 62px 0 0 112px;
+  margin: 62px 0 0 100px;
 }
 .modal_background .modal_box h4 {
-  padding: 20px 0 30px 0;
+  padding: 17px 0 27px 0;
   border-bottom: 0.3px solid #000;
   font-size: 16px;
   font-weight: 800;
   font-family: 'NanumSquareRound';
 }
-.modal_background.check-email .modal_box h4 {
+/* .modal_background.check-email .modal_box h4 {
   padding: 6px 0 18px 0;
   border-bottom: 0.3px solid #000;
   font-size: 16px;
   font-weight: 800;
   font-family: 'NanumSquareRound';
-}
+} */
 .modal_background.check-oldpw .modal_box h4 {
-  padding: 14px 0 18px 0;
+  padding: 10px 0 14px 0;
   border-bottom: 0.3px solid #000;
   font-size: 16px;
   font-weight: 800;
@@ -977,19 +993,16 @@ span {vertical-align: baseline;}
   font-family: 'NanumSquareRound';
 }
 
-/* #app {
-  padding-top: 0;
-} */
 #wrap1 {
   text-align: left;
-  height: 62px;
+  height: 60px;
   position: relative;
 }
 #wrap1 .material-icons {
   position: absolute;
-  top: 10px;
+  top: 8px;
   /* left: 10px; */
-  right: 308px;
+  right: 295px;
   display: inline-block;
   color: #fff;
   font-size: 42px;
@@ -997,9 +1010,9 @@ span {vertical-align: baseline;}
 }
 #wrap1 span {
   position: absolute;
-  top: 18px;
+  top: 16px;
   /* left: 50px; */
-  right: 250px;
+  right: 238px;
   display: inline-block;
   color: #fff;
   font-size: 21px;
@@ -1012,8 +1025,8 @@ span {vertical-align: baseline;}
   /* text-align: center;
   padding: 10px 0; */
   position: relative;
-  width: 300px;
-  height: 490px;
+  width: 290px;
+  height: 474px;
   padding: 16px;
   border-radius: 5px;
   background-color: #F4E7B6;
@@ -1025,6 +1038,13 @@ span {vertical-align: baseline;}
   font-size: 32px;
   border-bottom: 0.3px solid #000;
   padding: 10px;
+}
+#goodbye_page #wrap2 h3 {
+  font-family: 'Sorts Mill Goudy', serif;
+  font-weight: 500;
+  font-size: 32px;
+  border-bottom: 0.3px solid #000;
+  padding: 6px;
 }
 #wrap2 #changePw_img {
   width: 84px;
@@ -1041,7 +1061,7 @@ span {vertical-align: baseline;}
   padding: 38px 0 0 0;
 }
 #goodbye_page #wrap2 ul {
-  padding: 14px 0 0 0;
+  padding: 8px 0 0 0;
 }
 #wrap2 li {
 
@@ -1061,21 +1081,21 @@ span {vertical-align: baseline;}
   position: relative;
   padding: 18px 0 28px 0;
 }
-#wrap2 li .input-box.email-input {
+/* #wrap2 li .input-box.email-input {
   position: relative;
   padding: 18px 0 28px 0;
-}
+} */
 #wrap2 li .input-box.pw-input {
   position: relative;
   padding: 18px 0 26px 0;
 }
 #changePw_page #wrap2 li .input-box.newPw-input {
   position: relative;
-  padding: 18px 0 33px 0;
+  padding: 18px 0;
 }
 #goodbye_page #wrap2 li .input-box.repw-input {
   position: relative;
-  padding: 18px 0 17px 0;
+  padding: 18px 0 15px 0;
 }
 #goodbye_page #wrap2 li .input-box.repw-input img {
   position: absolute;
@@ -1145,7 +1165,7 @@ span {vertical-align: baseline;}
 
 #wrap3 {
   text-align: center;
-  padding: 16px 0 24px 0;
+  padding: 16px 0;
 }
 #wrap3 .finish-btn {
   font-family: 'NanumSquareRound';
@@ -1173,6 +1193,7 @@ span {vertical-align: baseline;}
   font-size: 42px;
   font-weight: 500;
   padding: 54px 0 10px 0;
+  margin-bottom: 0;
 }
 #goodbye_finish_page .subtitle {
   font-family: 'NanumSquareRound';
@@ -1182,7 +1203,7 @@ span {vertical-align: baseline;}
 }
 #goodbye_finish_page img {
   width: 200px;
-  padding: 57px 80px 30px 80px;
+  padding: 50px 80px 30px 80px;
 }
 #goodbye_finish_page span {
   font-family: 'NanumSquareRound';
@@ -1225,8 +1246,8 @@ span {vertical-align: baseline;}
 #Q_list_page #setting {
   position: absolute;
   width: 24px;
-  top: 21px;
-  right: 35px;
+  top: 25px;
+  right: 30px;
 }
 
 .title {
