@@ -151,7 +151,7 @@
 
 <div class ="qna_requset_header">
   <i class="material-icons">keyboard_arrow_left</i>
-  <span class="request_day_number">{{day}}</span>
+  <span class="request_day_number">{{question_25_content[3].question_day}}</span>
 </div>
 
 <div class="qna_request_header_hr">
@@ -163,14 +163,13 @@
 </div>
 
 <div class="request_question">
-  <span class = "question_number">{{question_num}}</span>
-  <span class = "question_contents">{{question_contents_1}}</span>
-  <span class = "question_contents">{{question_contents_2}}</span>
+  <span class = "question_number">{{question_25_content[3].question_num}}</span>
+  <span class = "question_contents">{{question_25_content[3].question}}</span>
 </div>
 
 <!--답변창 180글자까지만 작성 가능  -->
 <form id= "request_textarea" action="" method="POST">
-<textarea v-model="qna_request" cols="40" rows="10"  placeholder="행복했던 순간을 떠올려보세요:)" maxlength="150"></textarea>
+<textarea v-model="qna_request" cols="40" rows="10"  placeholder="행복했던 순간을 떠올려보세요:)" maxlength="180"></textarea>
 <br/>
 <span id="counter">({{qna_request.length}}자 / 최대 180자)</span>
 </form>
@@ -419,7 +418,7 @@
           <img :src="require(`@/assets/box/${3*(i-1)+j}.png`)" alt="" id='giftbox'>
           {{3*(i-1)+j}}
         </div>
-        <div @click="questionList" v-if='i==8'>
+        <div @click="questionList"  v-if='i==8'>
           <img src="./assets/box/25.png" alt="" id="giftbox_25">
           25
         </div>
@@ -434,6 +433,8 @@
 </template>
 
 <script>
+
+import question_25 from './assets/question_25.js';
 
 export default {
   name: 'App',
@@ -484,7 +485,9 @@ export default {
       question_num:'Q4.',
       question_contents_1:'이번년도에 가장 행복했던 순간은 언제인가요?',
       question_contents_2:'누구와 함께였나요?',
-      qna_request:[]
+      qna_request:[],
+      question_25_content:question_25,
+      gift_select:0,
     }
   },
   methods: {
@@ -1502,6 +1505,10 @@ header {
   padding: 6px;
 }
 
+.question_contents{
+  margin-left : auto;
+  margin-right : auto;
+  }
 .request_question{
   display: flex;
   flex-direction: column;
