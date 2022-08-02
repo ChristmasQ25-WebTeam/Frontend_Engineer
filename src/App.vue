@@ -4,7 +4,7 @@
     <div class="container">
       <div id="title">Christmas Q25</div>
       <div class="subtitle">- 당신의 1년을 정리하는 25개의 질문 -</div>
-      <div><img id="logo_1" src="./assets/christmas-wreath.png"></div>
+      <div><img id="logo_1" src="./assets/01_wreath.png"></div>
       <div><button @click="introBtnOn" type="button" class="btn">소개</button></div>
       <div><button @click="togo_login_page" type="button" class="btn" id="startBtn">시작하기</button></div>
       <!-- <div><button @click="pwBtnOn" type="button" onclick="" class="btn">비밀번호 찾기</button></div> -->
@@ -23,7 +23,7 @@
         <p>Christmas Q25가<br>1년동안의 소중했던 추억,<br>행복했던 기억,<br>고마웠던 사람을 떠올리게 하는<br>
             따뜻한 매개체가 되길 바라며</p><br>
         <p>모든 사용자분들의 행복한 연말을 기원합니다.</p><br>
-        <div id="fromteam">team name<span><img src="./assets/02_stamp_empty.png" id="stampimg">&nbsp;올림&nbsp;&nbsp;</span></div>
+        <div id="fromteam">team name<span><img src="./assets/02_stamp.png" id="stampimg">&nbsp;올림&nbsp;&nbsp;</span></div>
       </div>
       <div><button @click="introBtnOff" type="button" class="btn" id="closeBtn">닫기</button></div>
     </div>
@@ -47,7 +47,7 @@
     <div class="container">
       <div id="title">Christmas Q25</div>
       <div class="subtitle">- 당신의 1년을 정리하는 25개의 질문 -</div>
-      <div><img id="logo_2" src="./assets/christmas-wreath.png"></div>
+      <div><img id="logo_2" src="./assets/01_wreath.png"></div>
       <div style="color: white; text-align: center;">
         <div id="welcomeWord">어서오세요<br>
         메리크리스마스 :)</div>
@@ -69,7 +69,6 @@
         <button type="button" @click="pwBtnOn" id="pwfindBtn">비밀번호 찾기</button>
       </div>
       <div id="teamname">teamname</div>
-<<<<<<< HEAD
     </div>
 
   <!-- 로그인 실패 모달창 페이지 -->
@@ -80,18 +79,6 @@
       </div>
     </div>
 
-=======
-    </div>
-
-  <!-- 로그인 실패 모달창 페이지 -->
-    <!-- <div class="black-bg" v-if="unknownEmail == true">
-      <div class="white-bg">
-        <p>등록되지 않은 이메일입니다</p>
-        <p @click="checkInfo = false" class="ok">확인</p>
-      </div>
-    </div>
-
->>>>>>> ee2d3bc5c8f30263a4123210e7423e3c9d5263d6
     <div class="black-bg" v-if="unknownPw == true">
       <div class="white-bg">
         <p>잘못된 비밀번호입니다</p>
@@ -100,7 +87,33 @@
     </div> -->
 
   </div>
-  
+<!-- 답변 모아보기 view -->
+  <div v-if="Q_gather_page==true">
+      <div id="backBtn">&lt;</div>
+      <br><br>
+      <div class="title">
+          <div><span class="userName">{{nickName}}</span>'s</div> 
+          <div>Christmas Q25</div>
+          <p>- 당신의 1년을 정리하는 25개의 질문 -</p>
+          <div id="title_line"></div>
+      </div>
+    
+      <div class="questionBox">
+        <div class="questionBox_line">
+          <div v-for="(question,i) in questionList" :key="question" class="questions">
+          <span id="Q_inquestion">Q{{i+1}}. &nbsp;</span>
+          <span>{{question}}</span>
+          </div>
+          <img src="./assets/02_stamp.png" id="stampimg2">
+        </div>
+      </div>
+
+      <div>
+        <span><img src="./assets/08_share.png" class="Icon"></span>
+        <span><img src="./assets/07_download.png" class="Icon"></span>
+      </div>
+  </div>
+ 
   <!-- 자몽 : 비번찾기 view -->
   <div v-if="pw_find_page==true">
     <!--비밀번호 재설정 링크 발송 모달창 -->
@@ -131,7 +144,7 @@
 
 
       <div class="key_icon">
-      <img alt="Vue logo" src="./assets/key.png">
+      <img alt="Vue logo" src="./assets/04_key.png">
       </div>
 
       <div class="password_guide">
@@ -261,13 +274,14 @@ export default {
   name: 'App',
   data() {
     return{
-      start_page : false,
+      start_page : true,
       introduction_page : false,
-      Q_list_page : true,
+      Q_list_page : false,
       pw_find_page : false,
       signUp_page : false,
-      complete_page : false,
+      // complete_page : false,
       login_page : false,
+      Q_gather_page : false,
 
       email : '',
 
@@ -282,7 +296,24 @@ export default {
       chkEng: /[a-zA-Z]/,
       chkEmail: false,
       emailOpen: false,
-      pwformOpen: false
+      pwformOpen: false,
+      questionList: [
+      '한 해 동안 가장 잘했다고 생각되는 결정 3가지',
+      '올해 읽었던 책이나 본 영화, 공연 중 가장 인상깊었던 것과 그 이유는?',
+      '내년의 목표는 무엇이고 내년의 나는 어떤 사람이 되면 좋을까요?',
+      '올해의 장소를 꼽아본다면, 어디로 꼽고 싶나요?',
+      '이번 크리스마스에 하고 싶은 일이 있다면 무엇인가요? 어떤 하루가 되길 바라나요?',
+      '이번년도에 있었던 가장 행복한 일은 무엇인가요?',
+      '올해 나에게 가장 영향을 많이 끼친 사람이 있다면 누구인가요? 그 이유는?',
+      '이번년도에 깨달은 교훈이 있나요?',
+      '올해 가장 힘이 되었던 노래는 무엇인가요?',
+      '올해를 떠올려보았을 때 생각나는 감정은 무엇인가요? 그 이유는 무엇인가요?',
+      '올해 새롭게 관심을 가지게 된 것이 있나요?',
+      '나와 함께해준 사람(들)에게 전하지 못한 말이 있다면?',
+      '스스로에게 가장 성장통을 많이 준 올해의 경험이 있다면?',
+      '1년중 가장 인상깊었던 사건이 있다면 무엇인가요?',
+      '올해 가장 많이 성장한 부분은 무엇인가요?'
+    ]
     }
   },
   methods: {
@@ -316,6 +347,7 @@ export default {
     },
     togo_answerGrouping_page(){
       this.Q_list_page=false;
+      this.Q_gather_page=true;
     },
 
     random_Q(){
@@ -396,6 +428,8 @@ export default {
     font-weight: normal;
     font-style: normal;
 }
+@import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+
 #app {
   margin-top: 20px;
   /* font-family: Avenir, Helvetica, Arial, sans-serif; */
@@ -489,7 +523,7 @@ body {
 
 /* 소개view css */
 .introductionBox {
-    padding: 20px;
+    padding: 15px 15px 25px 15px;
     border-radius: 5px;
     background-color: #F4E7B6;
     width: 305px;
@@ -510,24 +544,6 @@ body {
   height: 59px;
   position: absolute;
 }
-
-/* 가입완료view css */
-/* #usermail {
-    text-decoration-line: underline;
-    color: blue;
-    text-align: center;
-}
-
-#Registration {
-    color: black;
-    width: 50px;
-    padding: 60px;
-    border: 1px solid black;
-    margin: 40px;
-    text-align: center;
-
-    background-color: white;
-} */
 
 /* 가입후 시작 view css */
 #inputBox {
@@ -587,6 +603,72 @@ body {
 
 #welcomeWord {
   margin-bottom: 24px;
+}
+
+/* 답변 모아보기view css */
+#backBtn {
+  color: white;
+  font-family: 'NanumSquareRound';
+  font-size: 43px;
+  font-weight: bold;
+  cursor: pointer;
+  float: left;
+  display: block;
+  line-height: 60%;
+}
+
+.questionBox {
+  width: 316px;
+  height: 437px;
+  background-color: #F4E7B6;
+  border-radius: 5px;
+  font-family: 'NanumSquareRound';
+  font-size: 14px;
+  padding: 10px;
+  display: inline-block;
+  text-align: justify;
+}
+
+.questionBox_line {
+  width: 310px;
+  height: 430px;
+  border: 3px solid #920000;
+  border-radius: 10px;
+  background-color: #F4E7B6;
+  margin: 0 auto;
+
+  overflow: auto;
+  position: fixed;
+  position: sticky;
+}
+
+.questions {
+  margin: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#Q_inquestion {
+  color: #920000; 
+  font-family: 'Sorts Mill Goudy', serif;
+}
+
+#stampimg2 {
+  width: 53px;
+  height: 59px;
+  float: right;
+}
+
+::-webkit-scrollbar {
+display: none;
+}
+
+.Icon {
+  width: 25px;
+  height: 25px;
+  margin: 10px 10px 20px 10px;
+  cursor: pointer;
+  float: right;
 }
 
 /* 미니 */
@@ -818,18 +900,19 @@ span {vertical-align: baseline;}
   /* position: absolute; */
   display: flex;
   flex-direction: column;
-  margin-bottom: 25px;
+  /* margin-bottom: 25px; */
   /* padding: 0px 60px 20px 60px; */
   
   background-color: #920000;
 }
 .title > #title_line {
   height: 1px;
-  width: 330px;
+  width: 283px;
   background-color: rgba(255, 255, 255, 0.646);
   border-radius: 1px;
-  margin: 34px 0 30px 0;
-
+  margin: auto;
+  margin-top: 18px;
+  margin-bottom: 11px;
 }
 .title > p {
   font-family: 'NanumSquareRound';
@@ -841,6 +924,7 @@ span {vertical-align: baseline;}
   color: rgba(255, 255, 255, 0.742);
   font-size: 13px;
   margin-top: 5px;
+  margin-bottom: 25px;
 }
 .newcontents {
   height: 450px;
@@ -894,7 +978,7 @@ span {vertical-align: baseline;}
   margin: 30px;
   font-weight: bold;
   font-size: 16px;
-  padding: 13px;
+  padding: 9px;
   border-radius: 5px;
   border: none;
   cursor: pointer;
