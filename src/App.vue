@@ -83,7 +83,7 @@
   <!-- 자몽 : 비번찾기 view -->
   <div v-if="pw_find_page == true">
 
-    <!--모달창-->
+    <!--모달창(임시비밀번호)-->
     <!--<div class="modal_bg" v-if="pk_find_modal == true">
       <div class="pw_find_modalbox">
         <div class="password_represent">
@@ -140,18 +140,12 @@
 </div>
 
 <!-- 자몽: 질문 답변하기 디자인 view -->
-
-<!--아직 상세페이지 25개 연결을 구현하는 상태이기는 한데 다른페이지 구현하실때
-이 페이지가 혹시나 필요하실까 하고 깃허브에 합쳐서 올려둡니다!
-페이지 구현하실때마다 깃허브에 올려주시면 코드 작업할때
-조금 더 수월하게 작업할수 있을것 같습니다. 감사합니다.-->
-
 <!--글 발행기능 아직 구현 X => 공부필요-->
   <div v-if="qna_request_page==true">
 
 <div class ="qna_requset_header">
-  <i class="material-icons">keyboard_arrow_left</i>
-  <span class="request_day_number">{{question_25_content[3].question_day}}</span>
+  <i  class="material-icons">keyboard_arrow_left</i>
+  <span class="request_day_number">{{question_25_content[gift_select].question_day}}</span>
 </div>
 
 <div class="qna_request_header_hr">
@@ -159,12 +153,12 @@
 </div>
 
 <div class="request_img_icon">
-<img src="./assets/12_essQ_pic01.png" alt="">
+<img src="./assets/question/08_question_pic01.png" alt="">
 </div>
 
 <div class="request_question">
-  <span class = "question_number">{{question_25_content[3].question_num}}</span>
-  <span class = "question_contents">{{question_25_content[3].question}}</span>
+  <span class = "question_number">{{question_25_content[gift_select].question_num}}</span>
+  <span class = "question_contents">{{question_25_content[gift_select].question}}</span>
 </div>
 
 <!--답변창 180글자까지만 작성 가능  -->
@@ -174,11 +168,10 @@
 <span id="counter">({{qna_request.length}}자 / 최대 180자)</span>
 </form>
 
-<!--공유하기 버튼
 <div class="requset_share">
-  <span class ="text">내 답변 공유하기</span>
-  <img src="./assets/08_share.png" alt="">
-</div>-->
+  <span class ="text">이미지 공유하기</span>
+  <img src="./assets/07_download.png" alt="">
+</div>
 
 <div id="jm_button">
 <button class="jm_finish-btn2" @click="submit">완료</button>
@@ -422,7 +415,7 @@
     <div class="newcontents">
       <div v-for="i in 8" :key="i">
         <div @click="questionList" v-for="j in 3" :key="j">
-          <img :src="require(`@/assets/box/${3*(i-1)+j}.png`)" alt="" id='giftbox'>
+          <img :src="require(`@/assets/box/${3*(i-1)+j}.png`)" @click="request_up_btn" gift_select=(3*(i-1)+j) alt="" id='giftbox'>
           {{3*(i-1)+j}}
         </div>
         <div @click="questionList"  v-if='i==8'>
@@ -559,6 +552,16 @@ export default {
     home_button(){
       this.pw_find_page=false;
       this.login_page=true;
+    },
+
+    request_up_btn(){
+      this.Q_list_page=false;
+      this.qna_request_page=true;
+    },
+
+     request_down_btn(){
+      this.Q_list_page=true;
+      this.qna_request_page=false;
     },
 
     random_Q(){
@@ -1500,13 +1503,14 @@ header {
   border: 0;
   height: 0.8px;
   margin-top: 10px;
-  width:130px;
+  width:120px;
   margin-left : auto;
   margin-right : auto;
 }
 
 .qna_requset_header .request_day_number{
   padding-left:90px;
+
 }
 
 .request_img_icon img{
@@ -1556,9 +1560,9 @@ textarea::placeholder {
   resize: none;
 }
 #request_textarea #counter{
-color:rgb(188, 187, 187);
-font-size: 13px;
-padding-left:150px;
+color:rgb(153, 151, 151);
+font-size: 11px;
+padding-left:180px;
 }
 
 .jm_finish-btn2{
@@ -1573,13 +1577,12 @@ padding-left:150px;
   margin-top: 40px;
 }
 
-/* 공유하기 버튼
 .requset_share{
   font-family: "NanumSquareRound";
   display: flex;
   justify-content: center;
   color: #fff;
-  padding:10px 0px 0px 80px ;
+  padding:3px 0px 0px 130px ;
 
 }
 .requset_share img{
@@ -1587,7 +1590,7 @@ padding-left:150px;
   height:20px;
   padding-left: 15px;
 }
-*/
+
 
 
 /* - 메인컬러
