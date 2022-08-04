@@ -83,7 +83,7 @@
   <!-- 자몽 : 비번찾기 view -->
   <div v-if="pw_find_page == true">
 
-    <!--모달창-->
+    <!--모달창(임시비밀번호)-->
     <!--<div class="modal_bg" v-if="pk_find_modal == true">
       <div class="pw_find_modalbox">
         <div class="password_represent">
@@ -153,7 +153,7 @@
 </div>
 
 <div class="request_img_icon">
-<img src="./assets/08_question_pic01.png" alt="">
+<img src="./assets/question/08_question_pic01.png" alt="">
 </div>
 
 <div class="request_question">
